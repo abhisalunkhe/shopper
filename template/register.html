@@ -1,0 +1,183 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Shopper - Ecommerce Portal</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="">
+		<!-- bootstrap -->
+		<link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">      
+		<link href="{% static 'bootstrap/css/bootstrap-responsive.min.css' %}" rel="stylesheet">		
+		<link href="{% static 'themes/css/bootstrappage.css' %}" rel="stylesheet"/>
+		
+		<!-- global styles -->
+		<link href="{% static 'themes/css/flexslider.css' %}" rel="stylesheet"/>
+		<link href="{% static 'themes/css/main.css' %}" rel="stylesheet"/>
+
+		<!-- scripts -->
+		<script src="{% static 'themes/js/jquery-1.7.2.min.js' %}"></script>
+		<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>				
+		<script src="{% static 'themes/js/superfish.js' %}"></script>	
+		<script src="{% static 'themes/js/jquery.scrolltotop.js' %}"></script>
+	</head>
+    <body>		
+		<div id="top-bar" class="container">
+			<div class="row">
+				<div class="span4">
+					<form method="POST" class="search_form">
+						<input type="text" class="input-block-level search-query" Placeholder="eg. T-sirt">
+					</form>
+				</div>
+				<div class="span8">
+					<div class="account pull-right">
+						<ul class="user-menu">
+							<li><a href="/">Home</a></li>
+							<li><a href="#">About Us</a></li>
+							<li><a href="{% url 'contact' %}">Contac Us</a></li>
+							{% if user.is_authenticated %}		
+							<li><a href="#">Welcome, {{user.username}}</a></li>
+							<li><a href="{% url 'cart' 0 %}">Cart</a></li>
+							<li><a href="{% url 'logout' %}">Logout</a></li>
+							{% else %}
+							<li><a href="{% url 'register' %}">Login</a></li>
+							{% endif %}
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="wrapper" class="container">
+			<section class="navbar main-menu">
+				<div class="navbar-inner main-menu">				
+					<a href="/" class="logo pull-left"><img src="{% static 'themes/images//logo.png' %}" class="site_logo" alt=""></a>
+					<nav id="menu" class="pull-right">
+						<ul>
+							<li><a href="#">Ladies</a>					
+								<ul>
+									<li><a href="{% url 'products' %}">Kurta</a></li>									
+									<li><a href="{% url 'products' %}">Ghagra</a></li>
+									<li><a href="{% url 'products' %}">Jeans</a></li>									
+								</ul>
+							</li>															
+							<li><a href="{% url 'products' %}">Gents</a></li>			
+							<li><a href="#">Sport</a>
+								<ul>									
+									<li><a href="{% url 'products' %}">Gifts and Tech</a></li>
+									<li><a href="{% url 'products' %}">Ties and Hats</a></li>
+									<li><a href="{% url 'products' %}">Cold Weather</a></li>
+								</ul>
+							</li>							
+							<li><a href="{% url 'products' %}">Handbag</a></li>
+							<li><a href="{% url 'products' %}">Best Seller</a></li>
+							<li><a href="{% url 'products' %}">Top Seller</a></li>
+						</ul>
+					</nav>
+				</div>
+			</section>			
+			<section class="header_text sub">
+			<img class="pageBanner" src="{% static 'themes/images/pageBanner.png' %}" alt="New products" >
+				<h4><span>Login or Regsiter</span></h4>
+			</section>			
+			<section class="main-content">				
+				<div class="row">
+					<div class="span5">					
+						<h4 class="title"><span class="text"><strong>Login</strong> Form</span></h4>
+						<form action="login" method="post">
+							{% csrf_token %}
+							<input type="hidden" name="next" value="/">
+							<fieldset>
+								<div class="control-group">
+									<label class="control-label">Username</label>
+									<div class="controls">
+										<input type="text" placeholder="Enter your username" name="username" id="username" class="input-xlarge" required>
+									</div>
+								</div>
+								<div class="control-group">
+									<label class="control-label">Password</label>
+									<div class="controls">
+										<input type="password" placeholder="Enter your password" name="password" id="password" class="input-xlarge" required>
+									</div>
+								</div>
+								<div class="control-group">
+									<hr>
+									<input tabindex="3" class="btn btn-inverse large" type="submit" value="Sign into your account">
+								</div>
+							</fieldset>
+						</form>				
+					</div>
+					<div class="span7">					
+						<h4 class="title"><span class="text"><strong>Register</strong> Form</span></h4>
+						<form action="register" method="post" class="form-stacked">
+							{% csrf_token %}
+							<fieldset>
+								<div class="control-group">
+									<label class="control-label">Username</label>
+									<div class="controls">
+										<input type="text" placeholder="Enter your username" name="username" class="input-xlarge" required>
+									</div>
+								</div>
+								<div class="control-group">
+									<label class="control-label">Email address:</label>
+									<div class="controls">
+										<input type="email" placeholder="Enter your email" name="email" class="input-xlarge" required>
+									</div>
+								</div>
+								<div class="control-group">
+									<label class="control-label">Password:</label>
+									<div class="controls">
+										<input type="password" placeholder="Enter your password" name="password" class="input-xlarge" required>
+									</div>
+								</div>							                            
+								<div class="control-group">
+									<p>Now that we know who you are. I'm not a mistake! In a comic, you know how you can tell who the arch-villain's going to be?</p>
+								</div>
+								<hr>
+								<div class="actions"><input tabindex="9" class="btn btn-inverse large" type="submit" value="Create your account"></div>
+							</fieldset>
+						</form>					
+					</div>				
+				</div>
+			</section>			
+			<section id="footer-bar">
+				<div class="row">
+					<div class="span3">
+						<h4>Navigation</h4>
+						<ul class="nav">
+							<li><a href="#">About Us</a></li>
+							<li><a href="{% url 'contact' %}">Contac Us</a></li>
+							{% if user.is_authenticated %}		
+							<li><a href="{% url 'logout' %}">Logout</a></li>
+							{% else %}
+							<li><a href="{% url 'register' %}">Login</a></li>
+							{% endif %}			
+						</ul>					
+					</div>
+					<div class="span4">
+						<h4>My Account</h4>
+						<ul class="nav">
+							<li><a href="#">My Account</a></li>
+							<li><a href="#">Newsletter</a></li>
+						</ul>
+					</div>
+					<div class="span5">
+						<p class="logo"><img src="{% static 'themes/images/logo.png' %}" class="site_logo" alt=""></p>
+						<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. the  Lorem Ipsum has been the industry's standard dummy text ever since the you.</p>
+						<br/>
+						<span class="social_icons">
+							<a class="facebook" href="#">Facebook</a>
+							<a class="twitter" href="#">Twitter</a>
+							<a class="skype" href="#">Skype</a>
+							<a class="vimeo" href="#">Vimeo</a>
+						</span>
+					</div>					
+				</div>	
+			</section>
+			<section id="copyright">
+				<span>Copyright 2024 Shopper. All right reserved.</span>
+			</section>
+		</div>
+		<script src="{% static 'themes/js/common.js' %}"></script>	
+    </body>
+</html>
